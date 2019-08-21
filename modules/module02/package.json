@@ -1,13 +1,14 @@
 {
-  "name": "modulo01",
+  "name": "module02",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "app": "nodemon src/server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sucrase": "^3.10.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
