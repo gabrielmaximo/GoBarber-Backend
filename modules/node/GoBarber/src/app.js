@@ -12,6 +12,7 @@ class App {
   }
 
   middlewares() {
+    this.server.disable('x-powered-by'); // this line disable x-powered-by for more secury
     this.server.use(express.json());
     this.server.use(
       '/files',
