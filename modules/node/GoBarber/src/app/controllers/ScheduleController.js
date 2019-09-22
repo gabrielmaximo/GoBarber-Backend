@@ -13,13 +13,13 @@ class ScheduleController {
     });
 
     if (!isProvider) {
-      return res.status(401).json({ error: 'This user is not a provider' });
+      return res.status(401).json({ error: 'User is not a provider' });
     }
 
     const { date } = req.query;
     const parseDate = parseISO(date);
 
-    const schedules = await Appointment.findAll({
+    const schedule = await Appointment.findAll({
       where: {
         provider_id: req.userId,
         canceled_at: null,
@@ -30,7 +30,7 @@ class ScheduleController {
       order: ['date'],
     });
 
-    return res.json(schedules);
+    return res.json(schedule);
   }
 }
 

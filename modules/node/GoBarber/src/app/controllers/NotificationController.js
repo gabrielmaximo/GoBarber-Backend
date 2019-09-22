@@ -16,6 +16,7 @@ class NotificationController {
 
     const notifications = await Notification.find({
       user: req.userId,
+      read: false,
     })
       .sort({ createdAt: 'desc' })
       .limit(20);

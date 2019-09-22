@@ -1,5 +1,6 @@
 import Bee from 'bee-queue';
 import CancellationMail from '../app/jobs/CancellationMail';
+import redisConfig from '../config/redis';
 
 const jobs = [CancellationMail];
 
@@ -14,10 +15,7 @@ class Queue {
     jobs.forEach(({ key, handle }) => {
       this.queues[key] = {
         bee: new Bee(key, {
-          redis: {
-            host: '127.0.0.1',
-            port: '6379',
-          },
+          redis: redisConfig,
         }),
         handle,
       };
@@ -37,6 +35,7 @@ class Queue {
   }
 
   handleFailure(job, err) {
+    // eslint-disable-next-line no-console
     console.log(`Queue ${job.queue.name}: FAILED ->`, err);
   }
 }

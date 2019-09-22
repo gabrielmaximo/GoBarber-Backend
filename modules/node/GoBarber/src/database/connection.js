@@ -5,18 +5,18 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
 
-import databaseConfig from '../config/database';
+import postgresConfig from '../config/postgres';
 
 const models = [User, File, Appointment];
 
 class Database {
   constructor() {
-    this.init();
+    this.postgres();
     this.mongo();
   }
 
-  init() {
-    this.connection = new Sequelize(databaseConfig);
+  postgres() {
+    this.connection = new Sequelize(postgresConfig);
 
     models
       .map(model => model.init(this.connection))
@@ -24,14 +24,11 @@ class Database {
   }
 
   mongo() {
-    this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/gobarber',
-      {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useFindAndModify: true,
-      }
-    );
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useFindAndModify: true,
+    });
   }
 }
 
