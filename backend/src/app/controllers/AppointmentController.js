@@ -7,10 +7,20 @@ import User from '../models/User';
 import Notification from '../schemas/Notification';
 import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
+import Cache from '../../lib/Cache';
 
 class AppointmentController {
   async index(req, res) {
     const { page = 1 } = req.query;
+
+    const cacheKey = `user:${req.userId}:appointments:${page}`;
+
+    const cached = await Cache.get(cacheKey);
+
+    if (cached) {
+      return res.json(cached);
+    }
+
     const appointmets = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
@@ -32,6 +42,9 @@ class AppointmentController {
         },
       ],
     });
+
+    await Cache.set(cacheKey, appointmets);
+
     return res.json(appointmets);
   }
 
@@ -73,6 +86,7 @@ class AppointmentController {
     /**
      * Check for past dates
      */
+
     const hourStart = await startOfHour(parseISO(date));
 
     if (isBefore(hourStart, new Date())) {
@@ -109,10 +123,19 @@ class AppointmentController {
       "'dia' dd 'de' MMMM', às' H:mm'h'",
       { locale: pt }
     );
-    await Notification.create({
+
+    const notification = await Notification.create({
       content: `Novo agendamento! cliente: ${user.name}, para ${formattedDate}`,
       user: provider_id,
     });
+
+    await Cache.invalidatePrefix(`user:${req.userId}`);
+
+    const ownerSocket = req.connectedUsers[provider_id];
+
+    if (ownerSocket) {
+      req.io.to(ownerSocket).emit('notification', notification);
+    }
 
     return res.json({ appointment });
   }
@@ -186,6 +209,8 @@ class AppointmentController {
     await Queue.add(CancellationMail.key, {
       appointment,
     });
+
+    await Cache.invalidatePrefix(`user:${req.userId}`);
 
     return res.json(appointment);
   }
