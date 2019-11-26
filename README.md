@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  Continuando API do GoBarber
+  API do GoBarber
 </h3>
 
 <p align="center">Código do terceiro módulo do <a href="https://rocketseat.com.br/bootcamp">Bootcamp GoStack</a> 🎓</p>
@@ -54,4 +54,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 
 ---
 
-Feito com ♥ by Rocketseat :wave: [Entre na nossa comunidade!](https://discordapp.com/invite/gCRAFhc)
+Conteudo produzido com ♥ by Rocketseat :wave: [Faça parte dessa comunidade!](https://discordapp.com/invite/gCRAFhc)
