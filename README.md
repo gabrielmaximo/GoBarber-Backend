@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <h1 align="center">
     <img alt="GoStack" src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/bootcamp-header.png" width="200px" />
 </h1>
@@ -56,8 +55,3 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 ---
 
 Conteudo produzido com ♥ by Rocketseat :wave: [Faça parte dessa comunidade!](https://discordapp.com/invite/gCRAFhc)
-=======
-## App GoBarber, desenvolvido durante o bootcamp GoStack ministrado pelo Diego Fernandes CTO da rocketseat
-
-#### Projeto com objetivo de aprender os conceitos de desenvolvimento web e mobile, construindo do zero, uma aplicação utilizando NodeJS no bakcend, ReactJS no frontend e React Native no mobile
->>>>>>> a20d4c9440feb8662e51354cbd7c8fc339ccb9e3
